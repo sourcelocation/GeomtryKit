@@ -4,7 +4,7 @@ struct Point: Equatable {
 }
 
 /// A function which is represented as "y=kx+b"
-struct LinearFunc {
+struct LinearFunc: Equatable, CustomStringConvertible {
     var k: Double
     var b: Double
     
@@ -13,22 +13,6 @@ struct LinearFunc {
         let k1 = self.k; let b1 = self.b
         let k2 = function.k;let b2 = function.b
         guard k1 != k2 else { return nil } // Parallel
-        /*
-         e.g.
-         y=x+1
-         y=-2x-2
-         x+1=-2x-2
-         3x=-3
-         x=-1
-         
-         or
-         
-         y=1x
-         y=3x-10
-         1x=3x-10
-         -2x=-10
-         x=5
-         */
         let leftSide = k1 - k2 // -2, -2x
         var rightSide = b2 - b1 // 4
         rightSide *= 1/leftSide
@@ -37,5 +21,23 @@ struct LinearFunc {
         
         return Point(x: x, y: y)
     }
+    
+    var description: String {
+        "y=\(k)x+\(b)"
+    }
 }
 
+struct Segment {
+    var point1: Point
+    var point2: Point
+    var function: LinearFunc {
+        let x1 = point1.x; let x2 = point2.x
+        let y1 = point1.y; let y2 = point2.y
+        var leftSide = y1 - y2
+        let rightSide = x1 - x2
+        leftSide *= 1/rightSide
+        let k = leftSide
+        let b = y1 - k * x1
+        return LinearFunc(k: k, b: b)
+    }
+}
