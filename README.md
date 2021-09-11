@@ -1,3 +1,3 @@
 # GeomtryKit
 
-A description of this package.
+Swift geometry library, to calculate various things. Currently in work
