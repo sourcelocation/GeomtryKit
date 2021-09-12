@@ -1,7 +1,4 @@
-struct Point: Equatable {
-    var x:Double
-    var y:Double
-}
+import Foundation
 
 /// A function which is represented as "y=kx+b"
 struct LinearFunc: Equatable, CustomStringConvertible {
@@ -22,22 +19,11 @@ struct LinearFunc: Equatable, CustomStringConvertible {
         return Point(x: x, y: y)
     }
     
+    func contains(point: Point) -> Bool {
+        return point.y == point.x * k + b
+    }
+    
     var description: String {
         "y=\(k)x+\(b)"
-    }
-}
-
-struct Segment {
-    var point1: Point
-    var point2: Point
-    var function: LinearFunc {
-        let x1 = point1.x; let x2 = point2.x
-        let y1 = point1.y; let y2 = point2.y
-        var leftSide = y1 - y2
-        let rightSide = x1 - x2
-        leftSide *= 1/rightSide
-        let k = leftSide
-        let b = y1 - k * x1
-        return LinearFunc(k: k, b: b)
     }
 }
